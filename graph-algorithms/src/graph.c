@@ -35,12 +35,11 @@ void show_graph(graph_t *graph)
 void free_graph(graph_t *graph)
 {
     for (size_t i = 0; i < graph->size; i++) {
-        edge_t **it = &graph->nodes[i].out;
-        printf("%lu %p\n", i, *it);
-        while (*it != NULL) {
-            edge_t *next = (*it)->next;
-            free(*it);
-            it = &next;
+        edge_t *it = graph->nodes[i].out;
+        while (it != NULL) {
+            edge_t *temp = it;
+            it = it->next;
+            free(temp);
         }
     }
     free(graph->nodes);
@@ -52,9 +51,13 @@ void add_edge(node_t *from, node_t *to, int weight)
     edge_t *edge = (edge_t *) malloc(sizeof(edge_t));
     *edge = (edge_t) {from, to, weight, NULL};
 
-    edge_t **it;
-    for (it = &from->out; *it != NULL; it = &(*it)->next) ;
-    *it = edge;
+    edge_t *it = from->out;
+    if (it == NULL) {
+        from->out = edge;
+    } else {
+        for (; it->next != NULL; it = it->next) ;
+        it->next = edge;
+    }
 }
 
 void remove_edge(edge_t *edge)
