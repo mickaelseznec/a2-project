@@ -25,10 +25,14 @@ int main(int argc, char *argv[])
     size_t from, to;
     while (fscanf(f, "%lu %lu", &from, &to) != EOF) {
         add_edge(&graph->nodes[from], &graph->nodes[to], 1);
+        add_edge(&graph->nodes[to], &graph->nodes[from], 1);
     }
     fclose(f);
 
-    //show_graph(graph);
+    size_t *distances = compute_shortest_paths(graph);
+
+    show_shortest_paths(distances, graph->size);
+    free(distances);
     free_graph(graph);
     return 0;
 }

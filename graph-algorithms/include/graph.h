@@ -22,8 +22,11 @@ typedef struct _graph_t {
 
 graph_t *new_graph(size_t size);
 void free_graph(graph_t *graph);
-
 void add_edge(node_t *from, node_t *to, int weight);
-void remove_edge(edge_t *edge);
+
+size_t *compute_shortest_paths(graph_t *graph);
+
+void show_graph(graph_t *graph);
+void show_shortest_paths(size_t *matrix, size_t size);
 
 #endif

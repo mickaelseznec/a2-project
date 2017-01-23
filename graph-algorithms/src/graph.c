@@ -60,7 +60,39 @@ void add_edge(node_t *from, node_t *to, int weight)
     }
 }
 
-void remove_edge(edge_t *edge)
+size_t *compute_shortest_paths(graph_t *graph)
 {
-    (void) edge;
+    size_t n = graph->size;
+    size_t (*res_matrix)[n] = (size_t (*)[n]) calloc(n * n, sizeof(size_t));
+
+    /* Initialize with edges' weight*/
+    for (size_t i = 0; i < n; i++) {
+        for (edge_t *it = graph->nodes[i].out; it != NULL; it = it->next) {
+            res_matrix[it->from->index][it->to->index] = it->weight;
+        }
+    }
+
+    /* Do the Floyd-Marshald algorithm*/
+    for (size_t k = 0; k < n; k++) {
+        for (size_t i = 0; i < n; i++) {
+            for (size_t j = 0; j < n; j++) {
+                if (res_matrix[i][k] > 0 && res_matrix[k][j] > 0)
+                    if (res_matrix[i][j] == 0 || res_matrix[i][j] > res_matrix[i][k] + res_matrix[k][j])
+                    res_matrix[i][j] = res_matrix[i][k] + res_matrix[k][j];
+            }
+        }
+    }
+
+    return (size_t *) res_matrix;
+}
+
+void show_shortest_paths(size_t *matrix, size_t size)
+{
+    size_t (*mat)[size] = (size_t (*)[size]) matrix;
+    for (size_t i = 0; i < size; i++) {
+        for (size_t j = 0; j < size; j++) {
+            printf("%lu ", mat[i][j]);
+        }
+        puts("");
+    }
 }
