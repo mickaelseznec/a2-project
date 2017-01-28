@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     }
 
     fscanf(f, "%lu %lu", &n_nodes, &n_edges);
-    printf("Reading %lu connections between %lu nodes\n", n_edges, n_nodes);
+    //printf("Reading %lu connections between %lu nodes\n", n_edges, n_nodes);
 
     graph_t *graph = new_graph(n_nodes + 1);
 
@@ -29,10 +29,14 @@ int main(int argc, char *argv[])
     }
     fclose(f);
 
-    size_t *distances = compute_shortest_paths(graph);
+    int *distances_to_all = compute_shortest_paths(graph);
+    show_shortest_paths(distances_to_all, graph->size);
 
-    show_shortest_paths(distances, graph->size);
-    free(distances);
+    int *distance_from_node = compute_shortest_path(graph, &graph->nodes[1]);
+    show_shortest_path(distance_from_node, graph->size);
+
+    free(distance_from_node);
+    free(distances_to_all);
     free_graph(graph);
     return 0;
 }

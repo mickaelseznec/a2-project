@@ -24,9 +24,11 @@ graph_t *new_graph(size_t size);
 void free_graph(graph_t *graph);
 void add_edge(node_t *from, node_t *to, int weight);
 
-size_t *compute_shortest_paths(graph_t *graph);
+int *compute_shortest_paths(graph_t *graph);
+int *compute_shortest_path(graph_t* graph, node_t *source);
 
 void show_graph(graph_t *graph);
-void show_shortest_paths(size_t *matrix, size_t size);
+void show_shortest_paths(int *matrix, size_t size);
+void show_shortest_path(int *matrix, size_t size);
 
 #endif
