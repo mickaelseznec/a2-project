@@ -9,8 +9,7 @@ typedef struct _node_heap {
     node_t **nodes;
     int *distances;
     size_t size;
-    size_t first_empty;
-    size_t last_full;
+    size_t inner_size;
 } node_heap_t;
 
 graph_t *new_graph(size_t size)
@@ -111,22 +110,11 @@ static void swap_position(node_t **heap, size_t index_1, size_t index_2)
 
 static node_t *pop_min(node_heap_t *heap)
 {
+    if (heap->inner_size == 0)
+        return NULL;
+
     node_t *res = heap->nodes[0];
-
-    if (res == NULL)
-        return res;
-
-    /* Change this to use a queue*/
-    int last_full = -1;
-    for (int i = heap->size - 1; i >= 0; i--) {
-        if (heap->nodes[i] != NULL) {
-            last_full = i;
-            break;
-        }
-    }
-
-    heap->nodes[0] = heap->nodes[last_full];
-    heap->nodes[last_full] = NULL;
+    heap->nodes[0] = heap->nodes[--heap->inner_size];
 
     size_t i = 0;
     while (1) {
@@ -139,8 +127,7 @@ static node_t *pop_min(node_heap_t *heap)
             i = left;
         } else if (right < heap->size
                 && heap->nodes[right] != NULL
-                && heap->distances[heap->nodes[right]->index] < heap->distances[heap->nodes[i]->index]
-                ) {
+                && heap->distances[heap->nodes[right]->index] < heap->distances[heap->nodes[i]->index]) {
             swap_position(heap->nodes, i, right);
             i = right;
         } else {
@@ -152,22 +139,14 @@ static node_t *pop_min(node_heap_t *heap)
 
 static void heap_push(node_heap_t *heap, node_t *node)
 {
-    int first_empty = -1;
-
-    for (size_t i = 0; i < heap->size; i++) {
-        if (heap->nodes[i] == NULL) {
-            first_empty = i;
-            break;
-        }
-    }
-    if (first_empty == -1) {
-        printf("Heap is full, why ?\n");
-        exit(1);
+    if (++heap->inner_size > heap->size) {
+        fprintf(stderr, "Heap Overflow\n");
+        exit(EXIT_FAILURE);
     }
 
-    heap->nodes[first_empty] = node;
+    heap->nodes[heap->inner_size - 1] = node;
 
-    int i = first_empty;
+    int i = heap->inner_size -1;
     while (1) {
         int father = (i - 1) / 2;
 
@@ -183,7 +162,7 @@ static void heap_push(node_heap_t *heap, node_t *node)
 
 static void heap_init(node_heap_t *heap, int *distances, size_t size)
 {
-    *heap = (node_heap_t) {NULL, distances, size, 0, 0};
+    *heap = (node_heap_t) {NULL, distances, size, 0};
     heap->nodes = (node_t **) malloc(heap->size * sizeof(*heap->nodes));
     memset(heap->nodes, 0, heap->size * sizeof(*heap->nodes));
 }
@@ -213,6 +192,44 @@ int *compute_shortest_path(graph_t* graph, node_t *source)
 
     free(heap.nodes);
     return distances;
+}
+
+float graph_global_efficiency(int *matrix, size_t size)
+{
+    int (*mat)[size] = (int (*)[size]) matrix;
+    float sum = 0;
+
+    for (size_t i = 0; i < size; i++) {
+        for (size_t j = i + 1; j < size; j++) {
+            if (mat[i][j] != INT_MAX)
+                sum += 1 / mat[i][j];
+        }
+    }
+    return (2 * sum) / (size * (size - 1));
+}
+
+
+int graph_diameter(int *distances, size_t size)
+{
+    int max = 0;
+    for (size_t i = 0; i < size; i++) {
+        if (distances[i] != INT_MAX && distances[i] > max)
+            max = distances[i];
+    }
+    return max;
+}
+
+float graph_efficiency(int *distances, size_t size)
+{
+    int reachable = 0;
+    float sum = 0;
+    for (size_t i = 0; i < size; i++) {
+        if (distances[i] != INT_MAX) {
+            reachable++;
+            sum += distances[i];
+        }
+    }
+    return (reachable != 0) ? sum / reachable : 0;
 }
 
 void show_shortest_path(int *matrix, size_t size)

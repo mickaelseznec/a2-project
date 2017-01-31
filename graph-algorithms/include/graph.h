@@ -27,6 +27,10 @@ void add_edge(node_t *from, node_t *to, int weight);
 int *compute_shortest_paths(graph_t *graph);
 int *compute_shortest_path(graph_t* graph, node_t *source);
 
+float graph_efficiency(int *distances, size_t size);
+int graph_diameter(int *distances, size_t size);
+float graph_global_efficiency(int *matrix, size_t size);
+
 void show_graph(graph_t *graph);
 void show_shortest_paths(int *matrix, size_t size);
 void show_shortest_path(int *matrix, size_t size);
