@@ -32,11 +32,14 @@ int main(int argc, char *argv[])
     int *distances_to_all = compute_shortest_paths(graph);
     //show_shortest_paths(distances_to_all, graph->size);
 
-    for (size_t i = 1; i < graph->size; i++) {
-        int *distance_from_node = compute_shortest_path(graph, &graph->nodes[i]);
-        //show_shortest_path(distance_from_node, graph->size);
+    for (size_t i = 1; i < 2; i++) {
+        int *distance_from_node = compute_shortest_path_unweighted(graph, &graph->nodes[i]);
+        show_shortest_path(distance_from_node, graph->size);
         //printf("[Node %3lu] Diameter: %2d, Average path distance: %f\n", i, graph_diameter(distance_from_node, graph->size),
                 //graph_efficiency(distance_from_node, graph->size)); 
+        free(distance_from_node);
+        distance_from_node = compute_shortest_path(graph, &graph->nodes[i]);
+        show_shortest_path(distance_from_node, graph->size);
         free(distance_from_node);
     }
     //printf("Global efficiency: %f\n", graph_global_efficiency(distances_to_all, graph->size));

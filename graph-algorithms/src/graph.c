@@ -12,6 +12,12 @@ typedef struct _node_heap {
     size_t inner_size;
 } node_heap_t;
 
+typedef struct _node_queue {
+    node_t **nodes;
+    size_t first, last, count;
+    size_t size;
+} node_queue_t;
+
 graph_t *new_graph(size_t size)
 {
     graph_t* graph = (graph_t *) malloc(sizeof(graph_t));
@@ -194,6 +200,71 @@ int *compute_shortest_path(graph_t* graph, node_t *source)
     }
 
     free(heap.nodes);
+    return distances;
+}
+
+static void queue_init(node_queue_t *queue, size_t size)
+{
+    queue->nodes = malloc(size * sizeof(node_t *));
+    queue->first = 0;
+    queue->last = 0;
+    queue->count = 0;
+    queue->size = size;
+}
+
+static int queue_enqueue(node_queue_t *queue, node_t *node)
+{
+    if (queue->count >= queue->size)
+        return -1;
+
+    queue->nodes[queue->last] = node;
+    queue->last = (queue->last + 1) % queue->size;
+    queue->count++;
+    return 0;
+}
+
+static node_t *queue_dequeue(node_queue_t *queue)
+{
+    if (queue->count == 0)
+        return NULL;
+
+    node_t *result = queue->nodes[queue->first];
+    queue->first = (queue->first + 1) % queue->size;
+    queue->count--;
+
+    return result;
+}
+
+int *compute_shortest_path_unweighted(graph_t * graph, node_t *source)
+{
+    int *distances = (int *) malloc(graph->size * sizeof(*distances));
+    int *marked = (int *) malloc(graph->size * sizeof(*marked));
+
+    /* Initialize all distance to "infinity" but the source itself*/
+    for (size_t i = 0; i < graph->size; i++)
+        distances[i] = INT_MAX;
+    distances[source->index] = 0;
+
+    memset(marked, 0, graph->size * sizeof(*marked));
+
+    node_queue_t queue;
+    queue_init(&queue, graph->size);
+    queue_enqueue(&queue, source);
+    marked[source->index] = 1;
+
+    node_t *node;
+    while ((node = queue_dequeue(&queue)) != NULL) {
+
+        for (edge_t *it = node->out; it != NULL; it = it->next) {
+            if (!marked[it->to->index]) {
+                distances[it->to->index] = distances[node->index] + 1;
+                marked[it->to->index] = 1;
+                queue_enqueue(&queue, it->to);
+            }
+        }
+    }
+
+    free(marked);
     return distances;
 }
 
