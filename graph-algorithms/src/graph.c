@@ -108,24 +108,25 @@ static void swap_position(node_t **heap, size_t index_1, size_t index_2)
     heap[index_2] = temp;
 }
 
-static node_t *pop_min(node_heap_t *heap)
+static node_t *heap_pop(node_heap_t *heap)
 {
     if (heap->inner_size == 0)
         return NULL;
 
     node_t *res = heap->nodes[0];
-    heap->nodes[0] = heap->nodes[--heap->inner_size];
+    heap->nodes[0] = heap->nodes[heap->inner_size - 1];
+    heap->inner_size--;
 
     size_t i = 0;
     while (1) {
         size_t left = i * 2 + 1, right = (i + 1) * 2;
 
-        if (left < heap->size
+        if (left < heap->inner_size
                 && heap->nodes[left] != NULL
                 && heap->distances[heap->nodes[left]->index] < heap->distances[heap->nodes[i]->index]) {
             swap_position(heap->nodes, i, left);
             i = left;
-        } else if (right < heap->size
+        } else if (right < heap->inner_size
                 && heap->nodes[right] != NULL
                 && heap->distances[heap->nodes[right]->index] < heap->distances[heap->nodes[i]->index]) {
             swap_position(heap->nodes, i, right);
@@ -134,19 +135,20 @@ static node_t *pop_min(node_heap_t *heap)
             break;
         }
     }
+
     return res;
 }
 
 static void heap_push(node_heap_t *heap, node_t *node)
 {
-    if (++heap->inner_size > heap->size) {
+    if (heap->inner_size == heap->size) {
         fprintf(stderr, "Heap Overflow\n");
         exit(EXIT_FAILURE);
     }
 
-    heap->nodes[heap->inner_size - 1] = node;
+    heap->nodes[heap->inner_size] = node;
 
-    int i = heap->inner_size -1;
+    int i = heap->inner_size;
     while (1) {
         int father = (i - 1) / 2;
 
@@ -158,6 +160,7 @@ static void heap_push(node_heap_t *heap, node_t *node)
             break;
         }
     }
+    heap->inner_size++;
 }
 
 static void heap_init(node_heap_t *heap, int *distances, size_t size)
@@ -181,7 +184,7 @@ int *compute_shortest_path(graph_t* graph, node_t *source)
     heap_push(&heap, source);
 
     node_t *node = NULL;
-    while ((node = pop_min(&heap)) != NULL) {
+    while ((node = heap_pop(&heap)) != NULL) {
         for (edge_t *it = node->out; it != NULL; it = it->next) {
             if (distances[it->to->index] > distances[it->from->index] + it->weight) {
                 distances[it->to->index] = distances[it->from->index] + it->weight;
