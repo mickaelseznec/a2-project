@@ -25,7 +25,7 @@ graph_t *new_graph(size_t size)
 
     graph->nodes = (node_t *) malloc(size * sizeof(node_t));
     if (graph->nodes == NULL)
-        fprintf(stderr, "Could not alloc %lu\n", size * sizeof(node_t));
+        fprintf(stderr, "Could not alloc %zu\n", size * sizeof(node_t));
     for (size_t i = 0; i < size; i++) {
         graph->nodes[i] = (node_t) {i, NULL};
     }
@@ -37,9 +37,9 @@ graph_t *new_graph(size_t size)
 void show_graph(graph_t *graph)
 {
     for (size_t i = 0; i < graph->size; i++) {
-        printf("%lu: {", i);
+        printf("%zu: {", i);
         for (edge_t *it = graph->nodes[i].out; it != NULL; it = it->next) {
-            printf("%lu", it->to->index);
+            printf("%zu", it->to->index);
             if (it->next != NULL) {
                 printf(", ");
             }

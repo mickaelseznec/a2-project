@@ -16,14 +16,14 @@ static graph_t *file_to_graph(char *file_name)
         return NULL;
     }
 
-    fscanf(f, "%lu %lu %d", &n_nodes, &n_edges, &oriented);
-    printf("Reading %lu connections between %lu nodes\n", n_edges, n_nodes);
+    fscanf(f, "%zu %zu %d", &n_nodes, &n_edges, &oriented);
+    printf("Reading %zu connections between %zu nodes\n", n_edges, n_nodes);
 
     graph_t *graph = new_graph(n_nodes + 1);
 
     /* Loop to add edges*/
     size_t from, to;
-    while (fscanf(f, "%lu %lu", &from, &to) != EOF) {
+    while (fscanf(f, "%zu %zu", &from, &to) != EOF) {
         add_edge(&graph->nodes[from], &graph->nodes[to], 1);
         if (!oriented) {
             add_edge(&graph->nodes[to], &graph->nodes[from], 1);
