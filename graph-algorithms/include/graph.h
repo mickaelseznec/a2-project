@@ -31,6 +31,7 @@ int *compute_shortest_path_unweighted(graph_t * graph, node_t *source);
 float graph_efficiency(int *distances, size_t size);
 int graph_diameter(int *distances, size_t size);
 float graph_global_efficiency(int *matrix, size_t size);
+float closeness_centrality(int *distances, size_t size);
 
 void show_graph(graph_t *graph);
 void show_shortest_paths(int *matrix, size_t size);

@@ -24,6 +24,8 @@ graph_t *new_graph(size_t size)
     memset(graph, 0, sizeof(graph_t));
 
     graph->nodes = (node_t *) malloc(size * sizeof(node_t));
+    if (graph->nodes == NULL)
+        fprintf(stderr, "Could not alloc %lu\n", size * sizeof(node_t));
     for (size_t i = 0; i < size; i++) {
         graph->nodes[i] = (node_t) {i, NULL};
     }
@@ -265,6 +267,7 @@ int *compute_shortest_path_unweighted(graph_t * graph, node_t *source)
     }
 
     free(marked);
+    free(queue.nodes);
     return distances;
 }
 
@@ -296,14 +299,19 @@ int graph_diameter(int *distances, size_t size)
 float graph_efficiency(int *distances, size_t size)
 {
     int reachable = 0;
-    float sum = 0;
+    int sum = 0;
     for (size_t i = 0; i < size; i++) {
         if (distances[i] != INT_MAX) {
             reachable++;
             sum += distances[i];
         }
     }
-    return (reachable != 0) ? sum / reachable : 0;
+    return (reachable != 0) ? (float) sum / reachable : 0;
+}
+
+float closeness_centrality(int *distances, size_t size)
+{
+    return 1.0f / graph_efficiency(distances, size);
 }
 
 void show_shortest_path(int *matrix, size_t size)
