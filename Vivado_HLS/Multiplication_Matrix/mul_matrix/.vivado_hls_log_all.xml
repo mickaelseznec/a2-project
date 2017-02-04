@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog/>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="WARNING: [SCHED 204-21] The critical path consists of the following:&#xD;&#xA;&#x9;'load' operation ('sum_mult_load', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:327) on array 'sum_mult', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:304 (2.39 ns)&#xD;&#xA;&#x9;'fadd' operation ('tmp_4', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:327) (7.26 ns)" projectName="mul_matrix" solutionName="solution1" date="2017-02-04T12:22:17.956+0100" type="Warning"/>
+        <logs message="WARNING: [SCHED 204-21] Estimated clock period (9.65ns) exceeds the target (target clock period: 10ns, clock uncertainty: 1.25ns, effective delay budget: 8.75ns)." projectName="mul_matrix" solutionName="solution1" date="2017-02-04T12:22:17.948+0100" type="Warning"/>
+        <logs message="WARNING: [XFORM 203-631] Renaming function 'hls::matrix_multiply_alt2&lt;hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits&lt;hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:60:13) into matrix_multiply_alt2." projectName="mul_matrix" solutionName="solution1" date="2017-02-04T12:22:17.793+0100" type="Warning"/>
+        <logs message="WARNING: [XFORM 203-105] Cannot partition array 'sum_mult' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:304): incorrect partition factor 1." projectName="mul_matrix" solutionName="solution1" date="2017-02-04T12:22:17.124+0100" type="Warning"/>
+        <logs message="WARNING: [XFORM 203-105] Cannot partition array 'c_i' : incorrect partition factor 1." projectName="mul_matrix" solutionName="solution1" date="2017-02-04T12:22:17.093+0100" type="Warning"/>
+        <logs message="WARNING: [XFORM 203-105] Cannot partition array 'b_i' (mul_matrix/main.cpp:41): incorrect partition factor 1." projectName="mul_matrix" solutionName="solution1" date="2017-02-04T12:22:17.081+0100" type="Warning"/>
+        <logs message="WARNING: [XFORM 203-503] Cannot unroll loop 'b_col_loop' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:312) in function 'hls::matrix_multiply_alt2&lt;hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits&lt;hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>': invalid partial unroll factor 1." projectName="mul_matrix" solutionName="solution1" date="2017-02-04T12:22:17.071+0100" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

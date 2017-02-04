@@ -1,0 +1,430 @@
+
+
+================================================================
+== Vivado HLS Report for 'matrix_multiply_top_matrix_multiply_alt2'
+================================================================
+* Date:           Sat Feb 04 12:22:18 2017
+
+* Version:        2016.2 (Build 1577090 on Thu Jun 02 16:59:10 MDT 2016)
+* Project:        mul_matrix
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z020clg484-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |  10.00|      9.65|        1.25|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+---------+
+    |  Latency  |  Interval | Pipeline|
+    | min | max | min | max |   Type  |
+    +-----+-----+-----+-----+---------+
+    |   39|   39|   39|   39|   none  |
+    +-----+-----+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +------------------------------------+-----+-----+----------+-----------+-----------+------+----------+
+        |                                    |  Latency  | Iteration|  Initiation Interval  | Trip |          |
+        |              Loop Name             | min | max |  Latency |  achieved |   target  | Count| Pipelined|
+        +------------------------------------+-----+-----+----------+-----------+-----------+------+----------+
+        |- a_col_loop_a_row_loop_b_col_loop  |   37|   37|        12|          1|          1|    27|    yes   |
+        +------------------------------------+-----+-----+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 12
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states: 14
+* Pipeline: 1
+  Pipeline-0: II = 1, D = 12, States = { 2 3 4 5 6 7 8 9 10 11 12 13 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 
+	2  / true
+2 --> 
+	14  / (exitcond_flatten1)
+	3  / (!exitcond_flatten1)
+3 --> 
+	4  / true
+4 --> 
+	5  / true
+5 --> 
+	6  / true
+6 --> 
+	7  / true
+7 --> 
+	8  / true
+8 --> 
+	9  / true
+9 --> 
+	10  / true
+10 --> 
+	11  / true
+11 --> 
+	12  / true
+12 --> 
+	13  / true
+13 --> 
+	2  / true
+14 --> 
+* FSM state operations: 
+
+ <State 1>: 1.57ns
+ST_1: sum_mult [1/1] 0.00ns
+:0  %sum_mult = alloca [9 x float], align 4
+
+ST_1: stg_16 [1/1] 1.57ns
+:1  br label %1
+
+
+ <State 2>: 5.42ns
+ST_2: indvar_flatten1 [1/1] 0.00ns
+:0  %indvar_flatten1 = phi i5 [ 0, %0 ], [ %indvar_flatten_next1, %ifBlock ]
+
+ST_2: Col_assign_2 [1/1] 0.00ns
+:1  %Col_assign_2 = phi i2 [ 0, %0 ], [ %tmp_i_i_mid2_v, %ifBlock ]
+
+ST_2: indvar_flatten [1/1] 0.00ns
+:2  %indvar_flatten = phi i4 [ 0, %0 ], [ %indvar_flatten_next, %ifBlock ]
+
+ST_2: Row_assign [1/1] 0.00ns
+:3  %Row_assign = phi i2 [ 0, %0 ], [ %tmp_1_mid2, %ifBlock ]
+
+ST_2: Col_assign [1/1] 0.00ns
+:4  %Col_assign = phi i2 [ 0, %0 ], [ %c, %ifBlock ]
+
+ST_2: exitcond_flatten1 [1/1] 1.91ns
+:5  %exitcond_flatten1 = icmp eq i5 %indvar_flatten1, -5
+
+ST_2: indvar_flatten_next1 [1/1] 1.72ns
+:6  %indvar_flatten_next1 = add i5 %indvar_flatten1, 1
+
+ST_2: stg_24 [1/1] 0.00ns
+:7  br i1 %exitcond_flatten1, label %7, label %.reset7
+
+ST_2: k [1/1] 0.80ns
+.reset7:0  %k = add i2 %Col_assign_2, 1
+
+ST_2: exitcond_flatten [1/1] 1.88ns
+.reset7:3  %exitcond_flatten = icmp eq i4 %indvar_flatten, -7
+
+ST_2: Row_assign_mid [1/1] 1.37ns
+.reset7:4  %Row_assign_mid = select i1 %exitcond_flatten, i2 0, i2 %Row_assign
+
+ST_2: tmp_mid1 [1/1] 1.36ns
+.reset7:5  %tmp_mid1 = icmp eq i2 %k, 0
+
+ST_2: tmp3 [1/1] 1.36ns
+.reset7:6  %tmp3 = icmp eq i2 %Col_assign_2, 0
+
+ST_2: tmp_mid2 [1/1] 1.37ns
+.reset7:7  %tmp_mid2 = select i1 %exitcond_flatten, i1 %tmp_mid1, i1 %tmp3
+
+ST_2: tmp_mid1_13 [1/1] 1.36ns
+.reset7:8  %tmp_mid1_13 = icmp eq i2 %k, -2
+
+ST_2: tmp_2 [1/1] 1.36ns
+.reset7:9  %tmp_2 = icmp eq i2 %Col_assign_2, -2
+
+ST_2: tmp_mid2_14 [1/1] 1.37ns
+.reset7:10  %tmp_mid2_14 = select i1 %exitcond_flatten, i1 %tmp_mid1_13, i1 %tmp_2
+
+ST_2: tmp_i_i_mid2_v [1/1] 1.37ns
+.reset7:11  %tmp_i_i_mid2_v = select i1 %exitcond_flatten, i2 %k, i2 %Col_assign_2
+
+ST_2: not_exitcond_flatten [1/1] 0.00ns (grouped into LUT with out node exitcond_mid)
+.reset7:16  %not_exitcond_flatten = xor i1 %exitcond_flatten, true
+
+ST_2: exitcond [1/1] 1.36ns
+.reset7:17  %exitcond = icmp eq i2 %Col_assign, -1
+
+ST_2: exitcond_mid [1/1] 1.37ns (out node of the LUT)
+.reset7:18  %exitcond_mid = and i1 %exitcond, %not_exitcond_flatten
+
+ST_2: r [1/1] 0.80ns
+.reset7:19  %r = add i2 %Row_assign_mid, 1
+
+ST_2: tmp_13 [1/1] 0.00ns (grouped into LUT with out node Col_assign_mid2)
+.reset7:21  %tmp_13 = or i1 %exitcond_mid, %exitcond_flatten
+
+ST_2: Col_assign_mid2 [1/1] 1.37ns (out node of the LUT)
+.reset7:22  %Col_assign_mid2 = select i1 %tmp_13, i2 0, i2 %Col_assign
+
+ST_2: tmp_1_mid2 [1/1] 1.37ns
+.reset7:23  %tmp_1_mid2 = select i1 %exitcond_mid, i2 %r, i2 %Row_assign_mid
+
+ST_2: stg_42 [1/1] 0.00ns
+.reset7:46  br i1 %tmp_mid2, label %2, label %3
+
+ST_2: stg_43 [1/1] 0.00ns
+:1  br i1 %tmp_mid2_14, label %4, label %5
+
+ST_2: c [1/1] 0.80ns
+ifBlock:1  %c = add i2 %Col_assign_mid2, 1
+
+ST_2: indvar_flatten_op [1/1] 0.80ns
+ifBlock:2  %indvar_flatten_op = add i4 %indvar_flatten, 1
+
+ST_2: indvar_flatten_next [1/1] 1.37ns
+ifBlock:3  %indvar_flatten_next = select i1 %exitcond_flatten, i4 1, i4 %indvar_flatten_op
+
+
+ <State 3>: 5.01ns
+ST_3: tmp_i_i_mid2_cast [1/1] 0.00ns
+.reset7:12  %tmp_i_i_mid2_cast = zext i2 %tmp_i_i_mid2_v to i5
+
+ST_3: tmp_s [1/1] 0.00ns
+.reset7:13  %tmp_s = call i4 @_ssdm_op_BitConcatenate.i4.i2.i2(i2 %tmp_i_i_mid2_v, i2 0)
+
+ST_3: p_shl1_cast [1/1] 0.00ns
+.reset7:14  %p_shl1_cast = zext i4 %tmp_s to i5
+
+ST_3: tmp_12 [1/1] 1.31ns
+.reset7:15  %tmp_12 = sub i5 %p_shl1_cast, %tmp_i_i_mid2_cast
+
+ST_3: tmp_1_mid2_cast [1/1] 0.00ns
+.reset7:24  %tmp_1_mid2_cast = zext i2 %tmp_1_mid2 to i5
+
+ST_3: tmp [1/1] 0.00ns
+.reset7:25  %tmp = call i4 @_ssdm_op_BitConcatenate.i4.i2.i2(i2 %tmp_1_mid2, i2 0)
+
+ST_3: p_shl_cast [1/1] 0.00ns
+.reset7:26  %p_shl_cast = zext i4 %tmp to i5
+
+ST_3: tmp_14 [1/1] 0.80ns
+.reset7:27  %tmp_14 = sub i5 %p_shl_cast, %tmp_1_mid2_cast
+
+ST_3: tmp_15 [1/1] 1.72ns
+.reset7:28  %tmp_15 = add i5 %tmp_i_i_mid2_cast, %tmp_14
+
+ST_3: tmp_22_cast [1/1] 0.00ns
+.reset7:29  %tmp_22_cast = zext i5 %tmp_15 to i64
+
+ST_3: A_addr [1/1] 0.00ns
+.reset7:30  %A_addr = getelementptr [9 x float]* %A, i64 0, i64 %tmp_22_cast
+
+ST_3: cast_in_a [2/2] 2.39ns
+.reset7:34  %cast_in_a = load float* %A_addr, align 4
+
+ST_3: tmp_i_i4_cast [1/1] 0.00ns
+.reset7:35  %tmp_i_i4_cast = zext i2 %Col_assign_mid2 to i5
+
+ST_3: tmp_16 [1/1] 1.31ns
+.reset7:36  %tmp_16 = add i5 %tmp_i_i4_cast, %tmp_12
+
+ST_3: tmp_23_cast [1/1] 0.00ns
+.reset7:37  %tmp_23_cast = sext i5 %tmp_16 to i64
+
+ST_3: B_addr [1/1] 0.00ns
+.reset7:38  %B_addr = getelementptr [9 x float]* %B, i64 0, i64 %tmp_23_cast
+
+ST_3: tmp_17 [1/1] 1.72ns
+.reset7:39  %tmp_17 = add i5 %tmp_i_i4_cast, %tmp_14
+
+ST_3: cast_in_b [2/2] 2.39ns
+.reset7:43  %cast_in_b = load float* %B_addr, align 4
+
+
+ <State 4>: 8.09ns
+ST_4: cast_in_a [1/2] 2.39ns
+.reset7:34  %cast_in_a = load float* %A_addr, align 4
+
+ST_4: cast_in_b [1/2] 2.39ns
+.reset7:43  %cast_in_b = load float* %B_addr, align 4
+
+ST_4: mult [4/4] 5.70ns
+.reset7:44  %mult = fmul float %cast_in_a, %cast_in_b
+
+
+ <State 5>: 5.70ns
+ST_5: mult [3/4] 5.70ns
+.reset7:44  %mult = fmul float %cast_in_a, %cast_in_b
+
+
+ <State 6>: 5.70ns
+ST_6: mult [2/4] 5.70ns
+.reset7:44  %mult = fmul float %cast_in_a, %cast_in_b
+
+
+ <State 7>: 5.70ns
+ST_7: tmp_24_cast [1/1] 0.00ns
+.reset7:40  %tmp_24_cast = zext i5 %tmp_17 to i64
+
+ST_7: C_addr [1/1] 0.00ns
+.reset7:41  %C_addr = getelementptr [9 x float]* %C, i64 0, i64 %tmp_24_cast
+
+ST_7: sum_mult_addr [1/1] 0.00ns
+.reset7:42  %sum_mult_addr = getelementptr [9 x float]* %sum_mult, i64 0, i64 %tmp_24_cast
+
+ST_7: mult [1/4] 5.70ns
+.reset7:44  %mult = fmul float %cast_in_a, %cast_in_b
+
+ST_7: sum_mult_load [2/2] 2.39ns
+.reset7:45  %sum_mult_load = load float* %sum_mult_addr, align 4
+
+
+ <State 8>: 9.65ns
+ST_8: sum_mult_load [1/2] 2.39ns
+.reset7:45  %sum_mult_load = load float* %sum_mult_addr, align 4
+
+ST_8: tmp_4 [5/5] 7.26ns
+:0  %tmp_4 = fadd float %sum_mult_load, %mult
+
+
+ <State 9>: 7.26ns
+ST_9: tmp_4 [4/5] 7.26ns
+:0  %tmp_4 = fadd float %sum_mult_load, %mult
+
+
+ <State 10>: 7.26ns
+ST_10: tmp_4 [3/5] 7.26ns
+:0  %tmp_4 = fadd float %sum_mult_load, %mult
+
+
+ <State 11>: 7.26ns
+ST_11: tmp_4 [2/5] 7.26ns
+:0  %tmp_4 = fadd float %sum_mult_load, %mult
+
+
+ <State 12>: 9.65ns
+ST_12: tmp_4 [1/5] 7.26ns
+:0  %tmp_4 = fadd float %sum_mult_load, %mult
+
+ST_12: stg_81 [1/1] 2.39ns
+:0  store float %tmp_4, float* %sum_mult_addr, align 4
+
+ST_12: stg_82 [1/1] 2.39ns
+:0  store float %mult, float* %sum_mult_addr, align 4
+
+
+ <State 13>: 2.39ns
+ST_13: stg_83 [1/1] 0.00ns
+.reset7:1  call void (...)* @_ssdm_op_SpecLoopName([33 x i8]* @a_col_loop_a_row_loop_b_col_lo)
+
+ST_13: empty_12 [1/1] 0.00ns
+.reset7:2  %empty_12 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 27, i64 27, i64 27)
+
+ST_13: stg_85 [1/1] 0.00ns
+.reset7:20  call void (...)* @_ssdm_op_SpecLoopName([22 x i8]* @a_row_loop_b_col_loop_str)
+
+ST_13: stg_86 [1/1] 0.00ns
+.reset7:31  call void (...)* @_ssdm_op_SpecLoopName([11 x i8]* @p_str1807) nounwind
+
+ST_13: tmp_5 [1/1] 0.00ns
+.reset7:32  %tmp_5 = call i32 (...)* @_ssdm_op_SpecRegionBegin([11 x i8]* @p_str1807)
+
+ST_13: stg_88 [1/1] 0.00ns
+.reset7:33  call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str1812) nounwind
+
+ST_13: stg_89 [1/1] 0.00ns
+:1  br label %6
+
+ST_13: stg_90 [1/1] 2.39ns
+:0  store float %tmp_4, float* %C_addr, align 4
+
+ST_13: stg_91 [1/1] 0.00ns
+:1  br label %6
+
+ST_13: stg_92 [1/1] 0.00ns
+:0  br label %ifBlock
+
+ST_13: stg_93 [1/1] 0.00ns
+:1  br label %ifBlock
+
+ST_13: empty [1/1] 0.00ns
+ifBlock:0  %empty = call i32 (...)* @_ssdm_op_SpecRegionEnd([11 x i8]* @p_str1807, i32 %tmp_5)
+
+ST_13: stg_95 [1/1] 0.00ns
+ifBlock:4  br label %1
+
+
+ <State 14>: 0.00ns
+ST_14: stg_96 [1/1] 0.00ns
+:0  ret void
+
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 10ns, clock uncertainty: 1.25ns.
+
+ <State 8>: 9.65ns
+The critical path consists of the following:
+	'load' operation ('sum_mult_load', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:327) on array 'sum_mult', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:304 (2.39 ns)
+	'fadd' operation ('tmp_4', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:327) (7.26 ns)
+
+ <State 12>: 9.65ns
+The critical path consists of the following:
+	'fadd' operation ('tmp_4', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:327) (7.26 ns)
+	'store' operation (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:330) of variable 'tmp_4', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:327 on array 'sum_mult', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:304 (2.39 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

@@ -1,0 +1,369 @@
+<AutoPilot:ProjectResources xmlns:AutoPilot="com.autoesl.autopilot.ui.directiveView">
+<sourceFile name="">
+<directive functionLabel="" functionName="matrix_multiply_default" label="">
+<pragma name="PIPELINE">
+<option name="II" value="MULTIPLIER_TRAITS::INNER_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt1" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="B"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="MULTIPLIER_TRAITS::UNROLL_FACTOR"/>
+<option name="dim" value="MULTIPLIER_TRAITS::B_UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt1" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="C"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="MULTIPLIER_TRAITS::UNROLL_FACTOR"/>
+<option name="dim" value="2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt1" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="sum_mult"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="MULTIPLIER_TRAITS::UNROLL_FACTOR"/>
+<option name="dim" value="1"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt1" label="">
+<pragma name="PIPELINE">
+<option name="II" value="MULTIPLIER_TRAITS::INNER_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt1" label="">
+<pragma name="UNROLL">
+<option name="FACTOR" value="MULTIPLIER_TRAITS::UNROLL_FACTOR"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt2" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="B"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="MULTIPLIER_TRAITS::UNROLL_FACTOR"/>
+<option name="dim" value="MULTIPLIER_TRAITS::B_UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt2" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="C"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="MULTIPLIER_TRAITS::UNROLL_FACTOR"/>
+<option name="dim" value="2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt2" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="sum_mult"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="MULTIPLIER_TRAITS::UNROLL_FACTOR"/>
+<option name="dim" value="2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt2" label="">
+<pragma name="PIPELINE">
+<option name="II" value="MULTIPLIER_TRAITS::INNER_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_alt2" label="">
+<pragma name="UNROLL">
+<option name="FACTOR" value="MULTIPLIER_TRAITS::UNROLL_FACTOR"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_add_tree" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="A"/>
+<option name="complete" positionalBoolean="type" value=""/>
+<option name="dim" value="MULTIPLIER_TRAITS::A_FULL_UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_add_tree" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="B"/>
+<option name="complete" positionalBoolean="type" value=""/>
+<option name="dim" value="MULTIPLIER_TRAITS::B_FULL_UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_add_tree" label="">
+<pragma name="PIPELINE">
+<option name="II" value="1"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_full" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="A"/>
+<option name="complete" positionalBoolean="type" value=""/>
+<option name="dim" value="MULTIPLIER_TRAITS::A_FULL_UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_full" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="B"/>
+<option name="complete" positionalBoolean="type" value=""/>
+<option name="dim" value="MULTIPLIER_TRAITS::B_FULL_UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="matrix_multiply_full" label="">
+<pragma name="PIPELINE">
+<option name="II" value="1"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_basic" label="">
+<pragma name="PIPELINE">
+<option name="II" value="CholeskyTraits::INNER_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt" label="">
+<pragma name="LOOP_TRIPCOUNT">
+<option name="max" value="1+RowsColsA/2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt" label="">
+<pragma name="LOOP_TRIPCOUNT">
+<option name="max" value="1+RowsColsA/2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt" label="">
+<pragma name="PIPELINE">
+<option name="II" value="CholeskyTraits::INNER_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="A"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="CholeskyTraits::UNROLL_FACTOR"/>
+<option name="dim" value="CholeskyTraits::UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="L"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="CholeskyTraits::UNROLL_FACTOR"/>
+<option name="dim" value="CholeskyTraits::UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="L_internal"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="CholeskyTraits::UNROLL_FACTOR"/>
+<option name="dim" value="CholeskyTraits::UNROLL_DIM"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="square_sum_array"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="CholeskyTraits::UNROLL_FACTOR"/>
+<option name="dim" value="1"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="product_sum_array"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="CholeskyTraits::UNROLL_FACTOR"/>
+<option name="dim" value="1"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="LOOP_TRIPCOUNT">
+<option name="max" value="1+RowsColsA/2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="LOOP_FLATTEN">
+<option name="off" positionalBoolean="1" value=""/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="PIPELINE">
+<option name="II" value="CholeskyTraits::INNER_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="UNROLL">
+<option name="FACTOR" value="CholeskyTraits::UNROLL_FACTOR"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="LOOP_TRIPCOUNT">
+<option name="max" value="1+RowsColsA/2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="cholesky_alt2" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="qrf_basic" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="qrf_basic" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="qrf_basic" label="">
+<pragma name="PIPELINE">
+<option name="II" value="QRF_TRAITS::UPDATE_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_basic" label="">
+<pragma name="PIPELINE">
+<option name="II" value="QRF_TRAITS::UPDATE_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_basic" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="qrf_basic" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="q_i"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="QRF_TRAITS::UNROLL_FACTOR"/>
+<option name="dim" value="2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="r_i"/>
+<option name="cyclic" positionalBoolean="type" value=""/>
+<option name="factor" value="QRF_TRAITS::UNROLL_FACTOR"/>
+<option name="dim" value="2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="STREAM">
+<option name="variable" positionalBoolean="4" value="to_rot"/>
+<option name="depth" value="RowsA/2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="STREAM">
+<option name="variable" positionalBoolean="4" value="rotations"/>
+<option name="depth" value="RowsA/2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="LOOP_MERGE">
+<option name="force" positionalBoolean="1" value=""/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="LOOP_TRIPCOUNT">
+<option name="min" value="1"/>
+<option name="max" value="RowsA/2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="PIPELINE">
+<option name="II" value="QRF_TRAITS::CALC_ROT_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="LOOP_TRIPCOUNT">
+<option name="min" value="1"/>
+<option name="max" value="RowsA/2"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="LOOP_MERGE">
+<option name="force" positionalBoolean="1" value=""/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="PIPELINE">
+<option name="II" value="QRF_TRAITS::UPDATE_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="UNROLL">
+<option name="FACTOR" value="QRF_TRAITS::UNROLL_FACTOR"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="PIPELINE">
+<option name="II" value="QRF_TRAITS::UPDATE_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="UNROLL">
+<option name="FACTOR" value="QRF_TRAITS::UNROLL_FACTOR"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="LOOP_MERGE">
+<option name="force" positionalBoolean="1" value=""/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="qrf_alt" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="back_substitute_basic" label="">
+<pragma name="PIPELINE">
+<option name="II" value="BackSubstituteTraits::INNER_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="back_substitute_alt" label="">
+<pragma name="PIPELINE">
+<option name="II" value="BackSubstituteTraits::DIAG_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="back_substitute_alt" label="">
+<pragma name="PIPELINE">
+<option name="II" value="BackSubstituteTraits::INNER_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="svd2x2" label="">
+<pragma name="INLINE"/>
+</directive>
+<directive functionLabel="" functionName="svd2x2" label="">
+<pragma name="INLINE"/>
+</directive>
+<directive functionLabel="" functionName="svd_basic" label="">
+<pragma name="PIPELINE">
+<option name="II" value="SVDTraits::OFF_DIAG_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="svd_basic" label="">
+<pragma name="PIPELINE">
+<option name="II" value="SVDTraits::OFF_DIAG_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="svd_pairs" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="svd_pairs" label="">
+<pragma name="PIPELINE">
+<option name="II" value="SVDTraits::DIAG_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="svd_pairs" label="">
+<pragma name="PIPELINE">
+<option name="II" value="SVDTraits::OFF_DIAG_II"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="svd_pairs" label="">
+<pragma name="INLINE">
+<option name="recursive" positionalBoolean="1" value=""/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="svd_pairs" label="">
+<pragma name="PIPELINE"/>
+</directive>
+</sourceFile>
+</AutoPilot:ProjectResources>

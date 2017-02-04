@@ -1,0 +1,91 @@
+INFO: [HLS 200-10] Running 'C:/Vivado/Vivado_HLS/2016.2/bin/unwrapped/win64.o/vivado_hls.exe'
+INFO: [HLS 200-10] For user 'vince' on host 'desktop-uqsshcl' (Windows NT_amd64 version 6.2) on Sat Feb 04 12:21:47 +0100 2017
+INFO: [HLS 200-10] In directory 'C:/Users/vince/Desktop/Zynq_Stuff/Multiplication_Matrix'
+INFO: [HLS 200-10] Opening project 'C:/Users/vince/Desktop/Zynq_Stuff/Multiplication_Matrix/mul_matrix'.
+INFO: [HLS 200-10] Adding design file 'mul_matrix/main.cpp' to the project
+INFO: [HLS 200-10] Adding test bench file 'mul_matrix/test' to the project
+INFO: [HLS 200-10] Opening solution 'C:/Users/vince/Desktop/Zynq_Stuff/Multiplication_Matrix/mul_matrix/solution1'.
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xc7z020clg484-1'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Analyzing design file 'mul_matrix/main.cpp' ... 
+INFO: [HLS 200-10] Validating synthesis directives ...
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [XFORM 203-602] Inlining function 'hls::NoTranspose::GetElement<3, 3, float>' into 'hls::GetMatrixElement<hls::NoTranspose, 3, 3, float>' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot\hls/linear_algebra/utils/x_hls_matrix_utils.h:99) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::GetMatrixElement<hls::NoTranspose, 3, 3, float>' into 'hls::matrix_multiply_alt2<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:316) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::matrix_multiply_top<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>' into 'hls::matrix_multiply<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, float, float>' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:548) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::matrix_multiply<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, float, float>' into 'matrix_multiply_top' (mul_matrix/main.cpp:57) automatically.
+WARNING: [XFORM 203-503] Cannot unroll loop 'b_col_loop' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:312) in function 'hls::matrix_multiply_alt2<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>': invalid partial unroll factor 1.
+WARNING: [XFORM 203-105] Cannot partition array 'b_i' (mul_matrix/main.cpp:41): incorrect partition factor 1.
+WARNING: [XFORM 203-105] Cannot partition array 'c_i' : incorrect partition factor 1.
+WARNING: [XFORM 203-105] Cannot partition array 'sum_mult' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:304): incorrect partition factor 1.
+INFO: [XFORM 203-602] Inlining function 'hls::NoTranspose::GetElement<3, 3, float>' into 'hls::GetMatrixElement<hls::NoTranspose, 3, 3, float>' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot\hls/linear_algebra/utils/x_hls_matrix_utils.h:99) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::GetMatrixElement<hls::NoTranspose, 3, 3, float>' into 'hls::matrix_multiply_alt2<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:316) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::matrix_multiply_top<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>' into 'hls::matrix_multiply<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, float, float>' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:548) automatically.
+INFO: [XFORM 203-602] Inlining function 'hls::matrix_multiply<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, float, float>' into 'matrix_multiply_top' (mul_matrix/main.cpp:57) automatically.
+INFO: [XFORM 203-541] Flattening a loop nest 'a_row_loop' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:311:76) in function 'hls::matrix_multiply_alt2<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>'.
+INFO: [XFORM 203-541] Flattening a loop nest 'a_col_loop' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:310:71) in function 'hls::matrix_multiply_alt2<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>'.
+WARNING: [XFORM 203-631] Renaming function 'hls::matrix_multiply_alt2<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, 3, 3, hls::matrix_multiply_traits<hls::NoTranspose, hls::NoTranspose, 3, 3, 3, 3, float, float>, float, float>' (C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:60:13) into matrix_multiply_alt2.
+INFO: [HLS 200-111] Elapsed time: 30.588 seconds; current memory usage: 147 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'matrix_multiply_top' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Scheduling module 'matrix_multiply_top_matrix_multiply_alt2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'a_col_loop_a_row_loop_b_col_loop'.
+INFO: [SCHED 204-61] Pipelining result: Target II: 1, Final II: 1, Depth: 12.
+WARNING: [SCHED 204-21] Estimated clock period (9.65ns) exceeds the target (target clock period: 10ns, clock uncertainty: 1.25ns, effective delay budget: 8.75ns).
+WARNING: [SCHED 204-21] The critical path consists of the following:
+	'load' operation ('sum_mult_load', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:327) on array 'sum_mult', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:304 (2.39 ns)
+	'fadd' operation ('tmp_4', C:/Vivado/Vivado_HLS/2016.2/common/technology/autopilot/hls/linear_algebra/hls_matrix_multiply.h:327) (7.26 ns)
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Elapsed time: 0.18 seconds; current memory usage: 148 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Exploring micro-architecture for module 'matrix_multiply_top_matrix_multiply_alt2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Elapsed time: 0.166 seconds; current memory usage: 148 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Scheduling module 'matrix_multiply_top' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Elapsed time: 0.093 seconds; current memory usage: 148 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Exploring micro-architecture for module 'matrix_multiply_top' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Elapsed time: 0.168 seconds; current memory usage: 148 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'matrix_multiply_top_matrix_multiply_alt2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'matrix_multiply_top_fadd_32ns_32ns_32_5_full_dsp': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'matrix_multiply_top_fmul_32ns_32ns_32_4_max_dsp': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'matrix_multiply_top_matrix_multiply_alt2'.
+INFO: [HLS 200-111] Elapsed time: 0.165 seconds; current memory usage: 148 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'matrix_multiply_top' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'matrix_multiply_top/A' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'matrix_multiply_top/B' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'matrix_multiply_top/C' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'matrix_multiply_top' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'matrix_multiply_top'.
+INFO: [HLS 200-111] Elapsed time: 0.56 seconds; current memory usage: 148 MB.
+INFO: [RTMG 210-278] Implementing memory 'matrix_multiply_top_matrix_multiply_alt2_sum_mult_ram' using distributed RAMs.
+INFO: [RTMG 210-278] Implementing memory 'matrix_multiply_top_a_i_ram' using distributed RAMs.
+INFO: [HLS 200-10] Finished generating all RTL models.
+INFO: [SYSC 207-301] Generating SystemC RTL for matrix_multiply_top.
+INFO: [VHDL 208-304] Generating VHDL RTL for matrix_multiply_top.
+INFO: [VLOG 209-307] Generating Verilog RTL for matrix_multiply_top.
+INFO: [HLS 200-112] Total elapsed time: 33.410 seconds; peak memory usage: 148 MB.
