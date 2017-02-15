@@ -6,6 +6,39 @@
 #include "graph.h"
 #include "node_heap.h"
 
+
+#ifdef USE_BINARY_GRAPH
+
+extern uint16_t _binary_graph_raw_start;
+extern uint16_t _binary_graph_raw_end;
+
+static graph_t *obj_to_file(void)
+{
+    uint16_t n_nodes, n_edges, oriented;
+    int i = 0;
+    n_nodes = _binary_graph_raw_start[i++]
+    n_edges = _binary_graph_raw_start[i++]
+    oriented = _binary_graph_raw_start[i++]
+
+    graph_t *graph = new_graph(n_nodes + 1);
+
+    /* Loop to add edges*/
+    size_t from, to;
+    int edge_count = 0;
+    for (int edge_count = 0; edge_count < n_edges; edge_count++) {
+        from = _binary_graph_raw_start[i++];
+        to = _binary_graph_raw_start[i++];
+
+        add_edge(&graph->nodes[from], &graph->nodes[to], 1);
+        if (!oriented) {
+            add_edge(&graph->nodes[to], &graph->nodes[from], 1);
+        }
+    }
+    return graph;
+}
+
+#else
+
 static const char filename[] = "resources/train.graph";
 
 /** file_to_graph
@@ -46,6 +79,8 @@ static graph_t *file_to_graph(const char *file_name)
     fclose(f);
     return graph;
 }
+
+#endif
 
 int main(void)
 {
