@@ -3,7 +3,7 @@ INCDIR := include
 OBJDIR := obj
 OUTDIR := out
 
-SRCS := main.c graph.c
+SRCS := main.c graph.c node_heap.c node_queue.c
 OBJS := $(patsubst %.c,%.o, $(SRCS))
 EXE  := main
 

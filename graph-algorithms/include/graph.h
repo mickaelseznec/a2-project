@@ -20,18 +20,21 @@ typedef struct _graph_t {
     node_t *nodes;
 } graph_t;
 
+#include "node_heap.h"
+#include "node_queue.h"
+
 graph_t *new_graph(size_t size);
 void free_graph(graph_t *graph);
 void add_edge(node_t *from, node_t *to, int weight);
 
-int *compute_shortest_paths(graph_t *graph);
-int *compute_shortest_path(graph_t* graph, node_t *source);
-int *compute_shortest_path_unweighted(graph_t * graph, node_t *source);
+void compute_shortest_paths(graph_t *graph, int *result);
+void compute_shortest_path(graph_t* graph, node_t *source, node_heap_t *heap, int *result);
+void compute_shortest_path_unweighted(graph_t * graph, node_t *source, node_queue_t *queue, int *result);
 
 float graph_efficiency(int *distances, size_t size);
 int graph_diameter(int *distances, size_t size);
 float graph_global_efficiency(int *matrix, size_t size);
-float closeness_centrality(int *distances, size_t size);
+float graph_closeness_centrality(int *distances, size_t size);
 
 void show_graph(graph_t *graph);
 void show_shortest_paths(int *matrix, size_t size);

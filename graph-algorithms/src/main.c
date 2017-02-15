@@ -4,8 +4,22 @@
 #include <string.h>
 
 #include "graph.h"
+#include "node_heap.h"
 
-static graph_t *file_to_graph(char *file_name)
+static const char filename[] = "resources/train.graph";
+
+/** file_to_graph
+ * [in] file_name: the name of the file to examine. It must have
+ *  - a header line consisting of 3 ints :
+ *      - number of nodes
+ *      - number of edges
+ *      - whether edges are oriented
+ *  - then number of edges lines describing edges:
+ *      - node from
+ *      - node to
+ * [return]: the result graph object
+ */
+static graph_t *file_to_graph(const char *file_name)
 {
     size_t n_nodes, n_edges;
     int oriented;
@@ -33,21 +47,45 @@ static graph_t *file_to_graph(char *file_name)
     return graph;
 }
 
-int main(int argc, char *argv[])
+int main(void)
 {
-    for (int i = 1; i < argc; i++) {
-        graph_t *graph = file_to_graph(argv[i]);
-        printf("Processing \"%s\" (%5lu nodes)\n", argv[i], graph->size);
+    graph_t *graph = file_to_graph(filename);
+    printf("Processing \"%s\" (%5lu nodes)\n", filename, graph->size);
 
-        int *distances_from_all = compute_shortest_paths(graph);
-        free(distances_from_all);
+    // Test shortest path all to all and associated global efficiency
+    int *result_all = malloc(graph->size * graph->size * sizeof(int));
+    compute_shortest_paths(graph, result_all);
+    show_shortest_paths(result_all, graph->size);
+    printf("Global efficiency: %f\n", graph_global_efficiency(result_all, graph->size));
 
-        /*
-        int *distances_from_1 = compute_shortest_path_unweighted(graph, &graph->nodes[1]);
-        free(distances_from_1);
-        */
-        free_graph(graph);
-    }
+    // Test shortest path one to all and associated characteristics
+    const int node_to_test = 3;
+    node_heap_t heap;
+    int *result = malloc(graph->size * sizeof(int));
+    heap_init(&heap, result, graph->size);
+    compute_shortest_path(graph, &graph->nodes[node_to_test], &heap, result);
+    printf("Results for node %d:\n\n", node_to_test);
+    printf("\tGraph diameter: %d\n", graph_diameter(result, graph->size));
+    printf("\tGraph efficiency: %f\n", graph_efficiency(result, graph->size));
+    printf("\tGraph closeness_centrality: %f\n", graph_closeness_centrality(result, graph->size));
+    show_shortest_path(result, graph->size);
+
+    // Test shortest path unweighted one to all and associated characteristics
+    // Note: with our graphs, the unweighted version should behave exactly the same way
+    node_queue_t queue;
+    queue_init(&queue, graph->size);
+    compute_shortest_path_unweighted(graph, &graph->nodes[node_to_test], &queue, result);
+    printf("Results for node %d:\n\n", node_to_test);
+    printf("\tGraph diameter: %d\n", graph_diameter(result, graph->size));
+    printf("\tGraph efficiency: %f\n", graph_efficiency(result, graph->size));
+    printf("\tGraph closeness_centrality: %f\n", graph_closeness_centrality(result, graph->size));
+    show_shortest_path(result, graph->size);
+
+    queue_free(&queue);
+    heap_free(&heap);
+    free(result_all);
+    free(result);
+    free_graph(graph);
 
     return 0;
 }
